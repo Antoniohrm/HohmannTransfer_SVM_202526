@@ -133,7 +133,7 @@ fprintf('\nThe Delta-V of the apogee raising burn is: %5.2f\n', dV2); % Print to
 
 tTargetOrbit = 2 * pi * sqrt((norm(r0f) ^ 3) / muEarth); % Initial orbital period [s]
 
-tTargetprop = 0.5 * tTargetOrbit; % Propagate the initial conditios for 50 % of an orbital period [s]
+tTargetprop = 1 * tTargetOrbit; % Propagate the initial conditios for 50 % of an orbital period [s]
 
 tspantarget = [ttransferarc(end), ttransferarc(end) + tTargetprop]; % Propagation timespan
 

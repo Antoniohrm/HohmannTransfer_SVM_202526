@@ -64,9 +64,9 @@ end
     xecef(:, 1:3));
 
 
-%% Plot 3D trajectory
+%% Plot ECI 3D trajectory
 
-figure('Name', '3D trajectory');
+figure('Name', '3D trajectory - ECI');
 
 hold on;
 
@@ -110,6 +110,67 @@ plot3( ...
 % Configure plot
 
 title('3D ECI trajectory');
+
+xlabel('X [m]');
+ylabel('Y [m]');
+zlabel('Z [m]');
+
+legend;
+
+grid off;
+
+axis equal; % Set equal scaling
+
+hold off;
+
+% set(gca, 'Color', 'White'); % Set background color of the plot
+
+%% Plot ECEF 3D trajectory
+
+figure('Name', '3D trajectory - ECEF');
+
+hold on;
+
+% Draw the Earth as a sphere
+
+[xsph, ysph, zsph] = sphere(50); % Create a sphere for the Earth (sphere outputs a radius 1 sphere)
+
+xsph = xsph .* 6378e3; % Scale X coordinates
+ysph = ysph .* 6378e3; % Scale Y coordinates
+zsph = zsph .* 6378e3; % Scale Z coordinates
+
+surf( ... 
+    xsph, ... 
+    ysph, ... 
+    zsph, ... 
+    'FaceColor', 'b', ... 
+    'EdgeColor', 'none', ... 
+    'HandleVisibility', 'off'); % Draw the Earth
+
+% Plot trajectory
+
+plot3( ... 
+    xecef(:, 1), ... 
+    xecef(:, 2), ... 
+    xres(:, 3), ... 
+    'LineWidth', 2, ... 
+    'Color', 'red', ... 
+    'DisplayName', 'Spacecraft trajectory');
+
+% Draw Earth's rotation axis
+
+plot3( ... 
+    [0, 0], ... 
+    [0, 0], ... 
+    [-1.1 * 6378e3, 1.1 * 6378e3], ... 
+    'LineWidth', 1.5, ... 
+    'LineStyle', ':', ... 
+    'Color', 'm', ... 
+    'DisplayName', 'Rotation axis of the Earth');
+
+% Configure plot
+
+title('3D ECEF trajectory');
 
 xlabel('X [m]');
 ylabel('Y [m]');
